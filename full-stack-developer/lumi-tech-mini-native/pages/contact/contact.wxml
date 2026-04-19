@@ -1,0 +1,46 @@
+<view class="contact">
+  <view class="hero">
+    <text class="title">联系我们</text>
+    <text class="subtitle">提供免费上门诊断服务，了解您的企业适合怎样的AI方案</text>
+  </view>
+
+  <view class="content">
+    <view class="form">
+      <view class="form-group">
+        <text class="label">姓名</text>
+        <input class="input" placeholder="请输入您的姓名" value="{{name}}" bindinput="onNameInput" />
+      </view>
+      <view class="form-group">
+        <text class="label">公司</text>
+        <input class="input" placeholder="请输入公司名称" value="{{company}}" bindinput="onCompanyInput" />
+      </view>
+      <view class="form-group">
+        <text class="label">联系电话</text>
+        <input class="input" type="tel" placeholder="请输入手机号码" value="{{phone}}" bindinput="onPhoneInput" />
+      </view>
+      <view class="form-group">
+        <text class="label">需求描述</text>
+        <textarea class="textarea" placeholder="请简单描述您的需求..." value="{{description}}" bindinput="onDescInput" />
+      </view>
+      <view class="btn {{submitting ? 'btn-disabled' : ''}}" bindtap="{{submitting ? '' : 'submitForm'}}">{{submitting ? '提交中...' : '提交咨询'}}</view>
+      <text class="success-msg" wx:if="{{submitStatus === 'success'}}">提交成功！我们将在24小时内与您联系。</text>
+      <text class="error-msg" wx:if="{{submitStatus === 'error'}}">提交失败，请稍后重试</text>
+    </view>
+
+    <view class="info-card">
+      <text class="info-title">联系方式</text>
+      <view class="info-item">
+        <text class="info-icon">📞</text>
+        <text class="info-text">400-888-8888</text>
+      </view>
+      <view class="info-item">
+        <text class="info-icon">✉️</text>
+        <text class="info-text">contact@lumitech.com</text>
+      </view>
+      <view class="info-item">
+        <text class="info-icon">📍</text>
+        <text class="info-text">北京市朝阳区科技园区</text>
+      </view>
+    </view>
+  </view>
+</view>

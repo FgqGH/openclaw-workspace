@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>龙宫 · 四海神明图鉴 | 中国海洋神祇文化复兴</title>
+  <meta name="description" content="探索中国神话中最神秘却被遗忘的角落——海洋神祇体系。四海龙王、妈祖、海若...这些神明为何在历史中逐渐消失？">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-deep: oklch(15% 0.02 250);
+      --color-ocean: oklch(45% 0.12 220);
+      --color-teal: oklch(60% 0.1 200);
+      --color-foam: oklch(95% 0.01 220);
+      --color-gold: oklch(75% 0.12 80);
+      --color-cream: oklch(96% 0.01 80);
+    }
+
+    * {
+      font-family: 'Noto Sans SC', sans-serif;
+    }
+
+    .font-serif {
+      font-family: 'Noto Serif SC', serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--color-deep);
+      color: var(--color-foam);
+    }
+
+    .ocean-gradient {
+      background: linear-gradient(180deg, var(--color-deep) 0%, oklch(20% 0.03 230) 50%, oklch(25% 0.04 220) 100%);
+    }
+
+    .wave-bg {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%230a0f1a' fill-opacity='0.4' d='M0,192L48,176C96,160,192,128,288,138.7C384,149,480,203,576,208C672,213,768,171,864,149.3C960,128,1056,128,1152,149.3C1248,171,1344,213,1392,234.7L1440,256L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: bottom;
+      background-size: 100% auto;
+    }
+
+    .text-gradient {
+      background: linear-gradient(135deg, var(--color-foam) 0%, var(--color-teal) 50%, var(--color-ocean) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .card-glow {
+      box-shadow: 0 0 60px -20px var(--color-ocean);
+    }
+
+    .btn-primary {
+      background: var(--color-ocean);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-primary:hover {
+      background: var(--color-teal);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px -10px var(--color-ocean);
+    }
+
+    .card {
+      background: linear-gradient(135deg, oklch(20% 0.02 250) 0%, oklch(15% 0.02 240) 100%);
+      border: 1px solid oklch(30% 0.02 250 / 0.3);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .card:hover {
+      border-color: var(--color-ocean);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px -20px var(--color-ocean);
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, var(--color-ocean) 50%, transparent 100%);
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px -5px var(--color-ocean); }
+      50% { box-shadow: 0 0 40px -5px var(--color-ocean); }
+    }
+
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .animate-pulse-glow {
+      animation: pulse-glow 3s ease-in-out infinite;
+    }
+
+    .stagger-1 { animation-delay: 0s; }
+    .stagger-2 { animation-delay: 0.5s; }
+    .stagger-3 { animation-delay: 1s; }
+    .stagger-4 { animation-delay: 1.5s; }
+
+    .deco-circle {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid var(--color-ocean);
+      opacity: 0.2;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body class="ocean-gradient min-h-screen wave-bg">
+  <!-- Decorative Elements -->
+  <div class="deco-circle w-96 h-96 -top-48 -right-48 animate-float"></div>
+  <div class="deco-circle w-64 h-64 top-1/3 -left-32 animate-float stagger-2"></div>
+  <div class="deco-circle w-48 h-48 bottom-1/4 right-1/4 animate-float stagger-3"></div>
+
+  <!-- Hero Section -->
+  <header class="relative z-10 px-6 py-20 md:py-32 max-w-5xl mx-auto text-center">
+    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 mb-8">
+      <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+      <span class="text-sm text-cyan-300">中国神话 × 海洋文化 × 新IP</span>
+    </div>
+    
+    <h1 class="font-serif text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+      <span class="text-gradient">龙宫 · 四海神明图鉴</span>
+    </h1>
+    
+    <p class="text-lg md:text-xl text-cyan-100/80 max-w-2xl mx-auto mb-4 leading-relaxed">
+      为什么中国神话里，厉害的神都在天上或地上，<br class="hidden md:block">
+      却没有地位尊贵的<span class="text-cyan-300 font-semibold">「海洋之神」</span>？
+    </p>
+    
+    <p class="text-base text-cyan-200/60 max-w-xl mx-auto mb-10">
+      我们正在挖掘那些被遗忘的中国海洋神祇，重新定义这片蓝色疆域的精神信仰
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+      <button class="btn-primary px-8 py-4 rounded-xl text-white font-semibold text-lg animate-pulse-glow">
+        探索海洋神祇世界
+      </button>
+      <a href="#products" class="px-8 py-4 rounded-xl border border-cyan-500/40 text-cyan-300 hover:bg-cyan-500/10 transition-all duration-300">
+        查看系列作品 →
+      </a>
+    </div>
+  </header>
+
+  <!-- Divider -->
+  <div class="divider max-w-xs mx-auto my-8"></div>
+
+  <!-- Pain Points Section -->
+  <section class="relative z-10 px-6 py-16 md:py-24 max-w-5xl mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="font-serif text-3xl md:text-4xl font-bold text-gradient mb-4">被遗忘的蓝色神话</h2>
+      <p class="text-cyan-200/70 max-w-lg mx-auto">中国拥有1.8万公里的海岸线，却在神话体系中几乎没有"海洋之神"的位置</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <!-- Pain Point 1 -->
+      <div class="card rounded-2xl p-8 text-center">
+        <div class="text-5xl mb-6">🏛️</div>
+        <h3 class="text-xl font-semibold mb-3 text-white">天界霸权</h3>
+        <p class="text-cyan-200/70 text-sm leading-relaxed">
+          玉帝、如来统领天界，哪吒、杨戬称霸人间，而大海深处的主宰者却无人问津
+        </p>
+      </div>
+
+      <!-- Pain Point 2 -->
+      <div class="card rounded-2xl p-8 text-center">
+        <div class="text-5xl mb-6">🌊</div>
+        <h3 class="text-xl font-semibold mb-3 text-white">文化断代</h3>
+        <p class="text-cyan-200/70 text-sm leading-relaxed">
+          四海龙王、妈祖、海若夫人...这些名字你听过，却不知道他们背后的完整故事
+        </p>
+      </div>
+
+      <!-- Pain Point 3 -->
+      <div class="card rounded-2xl p-8 text-center">
+        <div class="text-5xl mb-6">📚</div>
+        <h3 class="text-xl font-semibold mb-3 text-white">IP真空</h3>
+        <p class="text-cyan-200/70 text-sm leading-relaxed">
+          故宫、敦煌都在做文创，但中国海洋神祇这个超级IP却无人开发，巨大的市场空白
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution Section -->
+  <section class="relative z-10 px-6 py-16 md:py-24 max-w-5xl mx-auto">
+    <div class="text-center mb-16">
+      <h2 class="font-serif text-3xl md:text-4xl font-bold text-gradient mb-4">我们做什么</h2>
+      <p class="text-cyan-200/70 max-w-lg mx-auto">用现代视角重新诠释古老神祇，让海洋神明走进当代生活</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- Core Gods Showcase -->
+      <div class="card rounded-2xl p-8 md:col-span-2">
+        <h3 class="text-2xl font-semibold mb-8 text-center text-white">核心神祇图谱</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div class="text-center group">
+            <div class="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border border-blue-500/30 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">
+              🐉
+            </div>
+            <h4 class="font-semibold text-white mb-1">东海龙王</h4>
+            <p class="text-xs text-cyan-200/60">敖广 · 统领东方</p>
+          </div>
+          <div class="text-center group">
+            <div class="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-green-500/20 to-teal-500/20 border border-green-500/30 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">
+              🐲
+            </div>
+            <h4 class="font-semibold text-white mb-1">南海龙王</h4>
+            <p class="text-xs text-cyan-200/60">敖明 · 统领南方</p>
+          </div>
+          <div class="text-center group">
+            <div class="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-red-500/20 to-orange-500/20 border border-red-500/30 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">
+              🐍
+            </div>
+            <h4 class="font-semibold text-white mb-1">西海龙王</h4>
+            <p class="text-xs text-cyan-200/60">敖闰 · 统领西方</p>
+          </div>
+          <div class="text-center group">
+            <div class="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-gray-500/20 to-slate-500/20 border border-gray-500/30 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">
+              🐠
+            </div>
+            <h4 class="font-semibold text-white mb-1">北海龙王</h4>
+            <p class="text-xs text-cyan-200/60">敖顺 · 统领北方</p>
+          </div>
+          <div class="text-center group">
+            <div class="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-pink-500/20 to-rose-500/20 border border-pink-500/30 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">
+              👸
+            </div>
+            <h4 class="font-semibold text-white mb-1">妈祖</h4>
+            <p class="text-xs text-cyan-200/60">林默 · 海上守护</p>
+          </div>
+          <div class="text-center group">
+            <div class="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">
+              🌊
+            </div>
+            <h4 class="font-semibold text-white mb-1">海若</h4>
+            <p class="text-xs text-cyan-200/60">海若夫人 · 北海神女</p>
+          </div>
+          <div class="text-center group">
+            <div class="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-purple-500/20 to-violet-500/20 border border-purple-500/30 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">
+              🦈
+            </div>
+            <h4 class="font-semibold text-white mb-1">夔牛</h4>
+            <p class="text-xs text-cyan-200/60">东海神兽 · 雷兽</p>
+          </div>
+          <div class="text-center group">
+            <div class="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-amber-500/20 to-yellow-500/20 border border-amber-500/30 flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">
+              🐢
+            </div>
+            <h4 class="font-semibold text-white mb-1">玄武</h4>
+            <p class="text-xs text-cyan-200/60">北方水神 ·龟蛇合体</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Lines -->
+      <div id="products" class="card rounded-2xl p-8">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="text-3xl">📖</span>
+          <div>
+            <h3 class="text-xl font-semibold text-white">数字内容系列</h3>
+            <p class="text-sm text-cyan-200/60">短视频 / 图文 / 深度长文</p>
+          </div>
+        </div>
+        <ul class="space-y-3 text-sm text-cyan-200/80">
+          <li class="flex items-start gap-2">
+            <span class="text-cyan-400 mt-0.5">✓</span>
+            <span>「中国海洋神明」系列科普内容</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-cyan-400 mt-0.5">✓</span>
+            <span>小红书/抖音同步更新</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-cyan-400 mt-0.5">✓</span>
+            <span>知乎知识付费专栏（9.9元/篇）</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-cyan-400 mt-0.5">✓</span>
+            <span>B站动画/插画视频</span>
+          </li>
+        </ul>
+        <p class="mt-6 text-xs text-cyan-200/50">免费内容 + 知识付费</p>
+      </div>
+
+      <div class="card rounded-2xl p-8">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="text-3xl">🎁</span>
+          <div>
+            <h3 class="text-xl font-semibold text-white">轻周边系列</h3>
+            <p class="text-sm text-cyan-200/60">明信片 / 贴纸 / 帆布包 / 徽章</p>
+          </div>
+        </div>
+        <ul class="space-y-3 text-sm text-cyan-200/80">
+          <li class="flex items-start gap-2">
+            <span class="text-cyan-400 mt-0.5">✓</span>
+            <span>「四海龙王」神祇图鉴明信片套装</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-cyan-400 mt-0.5">✓</span>
+            <span>「妈祖护佑」海上平安系列</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-cyan-400 mt-0.5">✓</span>
+            <span>限定版神祇徽章（铜镀金）</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-cyan-400 mt-0.5">✓</span>
+            <span>主题贴纸包（20款随机）</span>
+          </li>
+        </ul>
+        <p class="mt-6 text-xs text-cyan-200/50">定价区间：29-99元</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="relative z-10 px-6 py-16 md:py-24 max-w-3xl mx-auto text-center">
+    <div class="card-glow card rounded-3xl p-10 md:p-16">
+      <h2 class="font-serif text-3xl md:text-4xl font-bold text-white mb-4">
+        加入这场蓝色神话复兴
+      </h2>
+      <p class="text-cyan-200/70 mb-8 max-w-md mx-auto">
+        首批关注者将获得「四海龙王」限量明信片套装（仅限前100名）
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <button class="btn-primary px-8 py-4 rounded-xl text-white font-semibold text-lg">
+          立即关注获取资格
+        </button>
+      </div>
+      <p class="mt-6 text-xs text-cyan-200/40">
+        小红书 / 抖音搜索：「龙宫神明图鉴」
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="relative z-10 px-6 py-12 max-w-5xl mx-auto text-center">
+    <div class="divider mb-8 max-w-xs mx-auto"></div>
+    <p class="text-cyan-200/50 text-sm">
+      © 2025 龙宫 · 四海神明图鉴 · 中国海洋神祇文化复兴计划
+    </p>
+    <p class="text-cyan-200/30 text-xs mt-2">
+      用现代设计重新诠释古老神话 · 让海洋神明走进当代生活
+    </p>
+  </footer>
+
+  <!-- Scroll animations -->
+  <script>
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.card').forEach((card, index) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
+      card.style.transition = `all 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.1}s`;
+      observer.observe(card);
+    });
+
+    // Button click tracking
+    document.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        console.log('CTA clicked:', btn.textContent.trim());
+      });
+    });
+  </script>
+</body>
+</html>

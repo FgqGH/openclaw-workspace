@@ -1,0 +1,28 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/services/services",
+    "pages/cases/cases",
+    "pages/about/about",
+    "pages/contact/contact"
+  ],
+  "window": {
+    "navigationBarTitleText": "LUMI科技",
+    "navigationBarBackgroundColor": "#667eea",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#F8FAFC"
+  },
+  "tabBar": {
+    "color": "#94A3B8",
+    "selectedColor": "#667eea",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      { "pagePath": "pages/home/home", "text": "首页" },
+      { "pagePath": "pages/services/services", "text": "服务" },
+      { "pagePath": "pages/cases/cases", "text": "案例" },
+      { "pagePath": "pages/about/about", "text": "我们" },
+      { "pagePath": "pages/contact/contact", "text": "咨询" }
+    ]
+  }
+}

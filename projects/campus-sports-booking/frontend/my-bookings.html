@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的预约</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, sans-serif; background: #f5f5f5; }
+    .header { background: #1976d2; color: white; padding: 16px; display: flex; justify-content: space-between; align-items: center; }
+    .logout { color: white; text-decoration: none; font-size: 14px; }
+    .container { padding: 16px; padding-bottom: 70px; }
+    .card { background: white; border-radius: 12px; padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+    .venue-name { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+    .booking-info { font-size: 13px; color: #888; margin-bottom: 8px; }
+    .status { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 12px; }
+    .status.pending { background: #fff3e0; color: #e65100; }
+    .status.used { background: #e8f5e9; color: #2e7d32; }
+    .status.cancelled { background: #f5f5f5; color: #999; }
+    .cancel-btn { float: right; padding: 4px 12px; border: 1px solid #f44336; background: white; color: #f44336; border-radius: 4px; cursor: pointer; font-size: 12px; }
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #eee; display: flex; }
+    .nav-item { flex: 1; padding: 10px; text-align: center; font-size: 12px; color: #666; text-decoration: none; }
+    .nav-item.active { color: #1976d2; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1 style="font-size:18px">📅 我的预约</h1>
+    <a href="index.html" onclick="localStorage.clear()">退出</a>
+  </div>
+  <div class="container" id="list">加载中...</div>
+  <div class="bottom-nav">
+    <a href="venues.html" class="nav-item">🏠 场地</a>
+    <a href="my-bookings.html" class="nav-item active">📅 我的预约</a>
+    <a href="admin.html" class="nav-item">⚙️ 管理</a>
+  </div>
+  <script>
+    const API = 'http://localhost:3000/api';
+    async function load() {
+      const token = localStorage.getItem('token');
+      if (!token) { location.href = 'index.html'; return; }
+      const res = await fetch(API + '/bookings/my', {
+        headers: { 'Authorization': 'Bearer ' + token }
+      });
+      const bookings = await res.json();
+      const el = document.getElementById('list');
+      if (!bookings.length) {
+        el.innerHTML = '<p style="text-align:center;color:#999;padding:40px">暂无预约</p>';
+        return;
+      }
+      const statusMap = { pending: '待使用', used: '已使用', cancelled: '已取消' };
+      const statusClass = { pending: 'pending', used: 'used', cancelled: 'cancelled' };
+      el.innerHTML = bookings.map(b => `
+        <div class="card">
+          ${b.status === 'pending' ? '<button class="cancel-btn" onclick="cancel(\'' + b.id + '\')">取消预约</button>' : ''}
+          <div class="venue-name">${b.venue_name || '场地' + b.venue_id}</div>
+          <div class="booking-info">
+            📅 ${b.date} ${b.start_time}
+          </div>
+          <div class="booking-info">预约码：${b.booking_code}</div>
+          <span class="status ${statusClass[b.status] || 'pending'}">${statusMap[b.status] || b.status}</span>
+        </div>
+      `).join('');
+    }
+
+    async function cancel(id) {
+      if (!confirm('确定取消预约？')) return;
+      const token = localStorage.getItem('token');
+      await fetch(API + '/bookings/' + id, {
+        method: 'DELETE',
+        headers: { 'Authorization': 'Bearer ' + token }
+      });
+      load();
+    }
+
+    load();
+  </script>
+</body>
+</html>

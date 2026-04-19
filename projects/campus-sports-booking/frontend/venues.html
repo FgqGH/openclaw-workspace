@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>场地列表</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #f5f5f5; }
+    .header { background: #1976d2; color: white; padding: 16px; display: flex; justify-content: space-between; align-items: center; }
+    .header h1 { font-size: 18px; }
+    .logout { color: white; text-decoration: none; font-size: 14px; }
+    .tabs { background: white; display: flex; overflow-x: auto; border-bottom: 1px solid #eee; }
+    .tab { padding: 12px 16px; white-space: nowrap; cursor: pointer; border-bottom: 2px solid transparent; color: #666; font-size: 14px; }
+    .tab.active { border-color: #1976d2; color: #1976d2; }
+    .venue-list { padding: 12px; }
+    .venue-card { background: white; border-radius: 8px; padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); cursor: pointer; }
+    .venue-card:hover { background: #fafafa; }
+    .venue-name { font-size: 16px; font-weight: 600; color: #333; margin-bottom: 4px; }
+    .venue-info { font-size: 13px; color: #888; }
+    .venue-type { display: inline-block; background: #e3f2fd; color: #1976d2; padding: 2px 8px; border-radius: 4px; font-size: 12px; margin-right: 8px; }
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #eee; display: flex; }
+    .nav-item { flex: 1; padding: 10px; text-align: center; font-size: 12px; color: #666; text-decoration: none; }
+    .nav-item.active { color: #1976d2; }
+    .padding-bottom { padding-bottom: 70px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🏀 场地列表</h1>
+    <a href="index.html" class="logout" onclick="localStorage.clear()">退出</a>
+  </div>
+  <div class="tabs" id="tabs"></div>
+  <div class="venue-list padding-bottom" id="venueList">加载中...</div>
+  <div class="bottom-nav">
+    <a href="venues.html" class="nav-item active">🏠 场地</a>
+    <a href="my-bookings.html" class="nav-item">📅 我的预约</a>
+    <a href="admin.html" class="nav-item">⚙️ 管理</a>
+  </div>
+  <script>
+    const API = 'http://localhost:3000/api';
+    const types = ['全部', '篮球', '足球', '羽毛球', '乒乓球', '网球'];
+    let allVenues = [];
+
+    async function load() {
+      const token = localStorage.getItem('token');
+      if (!token) { location.href = 'index.html'; return; }
+
+      const res = await fetch(API + '/venues');
+      allVenues = await res.json();
+      renderTabs();
+      renderVenues('全部');
+    }
+
+    function renderTabs() {
+      const el = document.getElementById('tabs');
+      el.innerHTML = types.map(t => `<div class="tab${t === '全部' ? ' active' : ''}" onclick="selectTab('${t}')">${t}</div>`).join('');
+    }
+
+    function selectTab(type) {
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.classList.toggle('active', tab.textContent === type);
+      });
+      renderVenues(type);
+    }
+
+    function renderVenues(type) {
+      const filtered = type === '全部' ? allVenues : allVenues.filter(v => v.type === type);
+      const el = document.getElementById('venueList');
+      if (filtered.length === 0) {
+        el.innerHTML = '<p style="text-align:center;color:#999;padding:40px">暂无场地</p>';
+        return;
+      }
+      el.innerHTML = filtered.map(v => `
+        <div class="venue-card" onclick="location.href='booking.html?venueId=${v.id}&name=${encodeURIComponent(v.name)}&type=${encodeURIComponent(v.type)}&location=${encodeURIComponent(v.location)}'">
+          <div class="venue-name">${v.name}</div>
+          <div class="venue-info">
+            <span class="venue-type">${v.type}</span>
+            <span>📍 ${v.location}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    load();
+  </script>
+</body>
+</html>

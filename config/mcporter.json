@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "minimax": {
+      "command": "uvx minimax-coding-plan-mcp -y",
+      "env": {
+        "MINIMAX_API_KEY": "sk-api-MxTHpn_4G2Q0q6rjShWWk-n3O_m4cxBueGlfRicoYSEYUTcWqb-E5QLuDYcArBKW5jGvOHCyvUfAPfg_rscwQg4OojCqekjraGgGfuP16Cc0d6UJfwt6I1k",
+        "MINIMAX_API_HOST": "https://api.minimaxi.com"
+      }
+    },
+    "exa": {
+      "baseUrl": "https://mcp.exa.ai/mcp"
+    }
+  }
+}

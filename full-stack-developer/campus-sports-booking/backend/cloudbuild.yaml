@@ -1,0 +1,13 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'asia-east1-docker.pkg.dev/$PROJECT_ID/campus-sports-repo/backend:$COMMIT_SHA'
+      - '-t'
+      - 'asia-east1-docker.pkg.dev/$PROJECT_ID/campus-sports-repo/backend:latest'
+      - '.'
+
+images:
+  - 'asia-east1-docker.pkg.dev/$PROJECT_ID/campus-sports-repo/backend:$COMMIT_SHA'
+  - 'asia-east1-docker.pkg.dev/$PROJECT_ID/campus-sports-repo/backend:latest'

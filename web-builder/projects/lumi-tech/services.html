@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>服务项目 — Lumi科技 | 企业AI转型全流程服务</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue-dark: #003366;
+      --blue: #004080;
+      --blue-mid: #0059A0;
+      --blue-light: #E8F0F8;
+      --blue-lighter: #F4F8FC;
+      --gray-900: #1A1A1A;
+      --gray-700: #4A4A4A;
+      --gray-500: #888;
+      --gray-300: #CCC;
+      --gray-100: #F5F5F5;
+      --white: #FFFFFF;
+      --border: #E0E0E0;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.06);
+      --shadow-blue: 0 8px 32px rgba(0,51,102,0.15);
+      --transition: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--white);
+      color: var(--gray-900);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0 3rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      letter-spacing: 0.05em;
+      text-decoration: none;
+    }
+
+    .nav-logo svg { width: 28px; height: 28px; }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--gray-700);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s var(--transition);
+    }
+
+    .nav-links a:hover { color: var(--blue-dark); }
+    .nav-links a.active { color: var(--blue-dark); }
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--blue-dark);
+    }
+
+    .nav-contact {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .nav-phone { font-size: 0.9rem; color: var(--gray-700); }
+
+    .nav-btn {
+      background: var(--blue-dark);
+      color: var(--white);
+      padding: 0.55rem 1.5rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s var(--transition);
+      font-family: inherit;
+      text-decoration: none;
+    }
+
+    .nav-btn:hover { background: var(--blue); }
+
+    /* PAGE HEADER */
+    .page-header {
+      background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 100%);
+      color: var(--white);
+      padding: clamp(1.25rem, 3vw, 2rem) clamp(0.75rem, 2vw, 1.5rem);
+      text-align: center;
+    }
+
+    .page-header h1 {
+      font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .page-header p {
+      font-size: clamp(0.8rem, 1.2vw, 0.9rem);
+      color: rgba(255,255,255,0.8);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 3rem; }
+
+    /* SERVICE DETAIL */
+    .service-detail {
+      padding: 5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .service-detail:last-child { border-bottom: none; }
+
+    .service-detail-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .service-detail:nth-child(even) .service-detail-inner {
+      direction: rtl;
+    }
+
+    .service-detail:nth-child(even) .service-detail-inner > * {
+      direction: ltr;
+    }
+
+    .service-detail-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(145deg, var(--blue-dark), var(--blue-mid));
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-detail-icon svg {
+      color: var(--white);
+    }
+
+    .service-detail h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 1rem;
+    }
+
+    .service-detail > .container > .service-detail-inner > div:first-child h2 {
+      color: var(--blue-dark);
+    }
+
+    .service-detail p {
+      font-size: 0.95rem;
+      color: var(--gray-700);
+      line-height: 1.9;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .service-features li {
+      font-size: 0.9rem;
+      color: var(--gray-700);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .service-features li::before {
+      content: '✔';
+      color: var(--blue-dark);
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .service-image {
+      background: var(--blue-lighter);
+      border-radius: 16px;
+      height: 320px;
+      overflow: hidden;
+    }
+
+    .service-image img,
+    .service-image video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* PROCESS */
+    .process-section {
+      background: var(--gray-100);
+      padding: 5rem 3rem;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      color: var(--blue-mid);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2rem);
+      font-weight: 700;
+      color: var(--gray-900);
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .process-item {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      background: var(--white);
+      border: 1px solid rgba(0,0,0,0.05);
+      position: relative;
+    }
+
+    .process-item::after {
+      content: '→';
+      position: absolute;
+      right: -1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--blue-mid);
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .process-item:last-child::after { display: none; }
+
+    .process-num {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background: var(--blue-dark);
+      color: var(--white);
+      font-weight: 700;
+      font-size: 1rem;
+      line-height: 40px;
+      border-radius: 50%;
+      margin-bottom: 1rem;
+    }
+
+    .process-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--gray-900);
+      margin-bottom: 0.5rem;
+    }
+
+    .process-desc {
+      font-size: 0.85rem;
+      color: var(--gray-700);
+      line-height: 1.6;
+    }
+
+    /* CTA */
+    .cta {
+      background: var(--blue-dark);
+      color: var(--white);
+      padding: 4rem 3rem;
+      text-align: center;
+    }
+
+    .cta h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .cta p {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 2rem;
+    }
+
+    .cta .btn-white {
+      background: var(--white);
+      color: var(--blue-dark);
+      padding: 0.9rem 2.5rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s var(--transition);
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .cta .btn-white:hover { background: var(--blue-light); transform: translateY(-1px); }
+
+    /* FOOTER */
+    footer {
+      background: var(--gray-100);
+      border-top: 1px solid var(--border);
+      padding: 3rem;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: var(--gray-500);
+      margin-top: 0.5rem;
+    }
+
+    .footer-links { display: flex; gap: 4rem; }
+
+    .footer-col h5 {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-700);
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+
+    .footer-col a {
+      color: var(--gray-500);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover { color: var(--blue-dark); }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 2rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-bottom p { font-size: 0.8rem; color: var(--gray-500); }
+
+    @media (max-width: 900px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      .page-header { padding: clamp(1rem, 3vw, 1.5rem) clamp(0.5rem, 1.5vw, 1rem); }
+      .container { padding: 0 1.5rem; }
+      .service-detail-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .service-detail:nth-child(even) .service-detail-inner { direction: ltr; }
+      .process-section { padding: 3rem 1.5rem; }
+      .process-grid { grid-template-columns: 1fr; }
+      .process-item::after { display: none; }
+      .cta { padding: 3rem 1.5rem; }
+      footer { padding: 2rem 1.5rem; }
+      .footer-links { flex-direction: column; gap: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="10" fill="#003366"/>
+        <path d="M12 28L20 12L28 28H12Z" fill="white"/>
+        <circle cx="20" cy="22" r="4" fill="#003366"/>
+      </svg>
+      LUMI 科技
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">首页</a></li>
+      <li><a href="services.html" class="active">服务项目</a></li>
+      <li><a href="cases.html">成功案例</a></li>
+      <li><a href="about.html">关于我们</a></li>
+      <li><a href="contact.html">联系我们</a></li>
+    </ul>
+    <div class="nav-contact">
+      <div class="nav-phone">400-888-8888</div>
+      <a href="contact.html" class="nav-btn">立即咨询</a>
+    </div>
+  </nav>
+
+  <section class="page-header">
+    <h1>服务项目</h1>
+    <p>三大核心业务，覆盖企业AI转型的全场景需求</p>
+  </section>
+
+  <!-- SERVICE 1 -->
+  <section class="service-detail">
+    <div class="container">
+      <div class="service-detail-inner">
+        <div>
+          <div class="service-detail-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+            </svg>
+          </div>
+          <h2>AI行业转型咨询</h2>
+          <p>深入调研企业现状与业务需求，定制化设计AI转型路径图。不套模板，只做最适合您企业的方案。我们相信：每一个企业的AI转型都应该是独特的。</p>
+          <ul class="service-features">
+            <li>企业现状诊断评估</li>
+            <li>AI应用场景梳理</li>
+            <li>转型路线图设计</li>
+            <li>实施指导与培训</li>
+            <li>效果跟踪与优化</li>
+          </ul>
+        </div>
+        <div class="service-image"><video src="assets/videos/vidu-video-3253410014228676.mp4" autoplay muted loop playsinline></video></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE 2 -->
+  <section class="service-detail">
+    <div class="container">
+      <div class="service-detail-inner">
+        <div>
+          <div class="service-detail-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+              <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/>
+            </svg>
+          </div>
+          <h2>自媒体自动化运营</h2>
+          <p>用AI技术帮助企业提升内容产出效率，降低运营团队工作负担，让品牌在多平台持续发声。从内容创作到数据分析，让AI成为您的运营助手。</p>
+          <ul class="service-features">
+            <li>内容生产效率提升 10x</li>
+            <li>多平台统一管理</li>
+            <li>粉丝互动智能处理</li>
+            <li>运营数据分析支持</li>
+            <li>爆款内容智能生成</li>
+          </ul>
+        </div>
+        <div class="service-image"><video src="assets/videos/vidu-video-3253416116834204.mp4" autoplay muted loop playsinline></video></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE 3 -->
+  <section class="service-detail">
+    <div class="container">
+      <div class="service-detail-inner">
+        <div>
+          <div class="service-detail-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2a4 4 0 0 1 4 4c0 1.1-.9 2-2 2h-4a2 2 0 0 1-2-2 4 4 0 0 1 4-4z"/>
+              <path d="M9 8H5a2 2 0 0 0-2 2v2h18v-2a2 2 0 0 0-2-2h-4"/>
+              <rect x="4" y="12" width="16" height="8" rx="2"/>
+              <circle cx="9" cy="16" r="1"/>
+              <circle cx="15" cy="16" r="1"/>
+            </svg>
+          </div>
+          <h2>垂直场景智能体开发</h2>
+          <p>基于大模型技术，为企业定制专属AI智能体。懂行业、懂业务、懂您的客户。从客服到销售、从HR到财务，打造您专属的AI数字员工。</p>
+          <ul class="service-features">
+            <li>业务场景深度定制</li>
+            <li>大模型微调与训练</li>
+            <li>多端系统集成对接</li>
+            <li>持续迭代优化服务</li>
+            <li>私有化部署支持</li>
+          </ul>
+        </div>
+        <div class="service-image"><video src="assets/videos/vidu-video-3253421362109136.mp4" autoplay muted loop playsinline></video></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process-section">
+    <div class="section-header">
+      <div class="section-label">合作流程</div>
+      <h2 class="section-title">简单四步，稳步推进</h2>
+    </div>
+    <div class="process-grid">
+      <div class="process-item">
+        <div class="process-num">1</div>
+        <h4 class="process-title">预约咨询</h4>
+        <p class="process-desc">电话或在线预约，顾问1小时内回访</p>
+      </div>
+      <div class="process-item">
+        <div class="process-num">2</div>
+        <h4 class="process-title">上门诊断</h4>
+        <p class="process-desc">专家团队上门调研，3天内出具诊断报告</p>
+      </div>
+      <div class="process-item">
+        <div class="process-num">3</div>
+        <h4 class="process-title">方案确认</h4>
+        <p class="process-desc">双方确认合作方案，签订正规合同</p>
+      </div>
+      <div class="process-item">
+        <div class="process-num">4</div>
+        <h4 class="process-title">落地交付</h4>
+        <p class="process-desc">按计划推进实施，快速验证效果</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>准备开启您的AI转型之旅？</h2>
+    <p>提供免费上门诊断服务，了解您的企业适合怎样的AI方案</p>
+    <a href="tel:400-888-8888" class="btn-white">拨打 400-888-8888</a>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="10" fill="#003366"/>
+            <path d="M12 28L20 12L28 28H12Z" fill="white"/>
+            <circle cx="20" cy="22" r="4" fill="#003366"/>
+          </svg>
+          LUMI 科技
+        </a>
+        <p>专注企业AI转型，让技术创造真实价值</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h5>服务</h5>
+          <ul>
+            <li><a href="services.html">AI行业转型</a></li>
+            <li><a href="services.html">自媒体自动化</a></li>
+            <li><a href="services.html">智能体开发</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>导航</h5>
+          <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="cases.html">成功案例</a></li>
+            <li><a href="about.html">关于我们</a></li>
+            <li><a href="contact.html">联系我们</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>联系</h5>
+          <ul>
+            <li><a>400-888-8888</a></li>
+            <li><a href="mailto:contact@lumi.tech">contact@lumi.tech</a></li>
+            <li><a>北京市海淀区</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Lumi科技（北京）有限公司</p>
+      <p>京ICP备XXXXXXXX号-1</p>
+    </div>
+  </footer>
+</body>
+</html>

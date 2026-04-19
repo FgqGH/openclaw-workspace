@@ -1,0 +1,284 @@
+/* 关于我们页面样式 - 现代化设计 */
+.about {
+  background-color: #F8FAFC;
+  min-height: 100vh;
+}
+
+/* 顶部英雄区域 */
+.hero {
+  padding: 60rpx 40rpx 80rpx;
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 50%, #B45309 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -25%;
+  width: 500rpx;
+  height: 500rpx;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -20%;
+  left: -15%;
+  width: 350rpx;
+  height: 350rpx;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.logo-circle {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  margin-bottom: 24rpx;
+  overflow: hidden;
+  border: 4rpx solid rgba(255, 255, 255, 0.3);
+}
+
+.title {
+  font-size: 52rpx;
+  font-weight: 800;
+  color: #FFFFFF;
+  display: block;
+  margin-bottom: 12rpx;
+  letter-spacing: 2rpx;
+  text-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.15);
+}
+
+.slogan {
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 1rpx;
+}
+
+/* 英雄区统计 */
+.hero-stats {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 48rpx;
+  padding-top: 40rpx;
+  border-top: 2rpx solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  z-index: 1;
+}
+
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-stat-num {
+  font-size: 44rpx;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+.hero-stat-label {
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 8rpx;
+}
+
+/* 内容区域 */
+.content {
+  padding: 50rpx 32rpx 100rpx;
+}
+
+/* 区块样式 */
+.section {
+  margin-bottom: 48rpx;
+}
+
+.intro-section {
+  background: #FFFFFF;
+  padding: 36rpx;
+  border-radius: 24rpx;
+  box-shadow: 0 8rpx 32rpx rgba(245, 158, 11, 0.1);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-bottom: 24rpx;
+}
+
+.section-icon-img {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 16rpx;
+}
+
+.section-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #1E293B;
+  letter-spacing: 0.5rpx;
+}
+
+.desc {
+  font-size: 28rpx;
+  color: #475569;
+  line-height: 1.9;
+}
+
+/* 优势列表 */
+.adv-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.adv-item {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  padding: 32rpx;
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.04);
+  position: relative;
+  overflow: hidden;
+}
+
+.adv-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6rpx;
+  background: linear-gradient(180deg, #F59E0B 0%, #D97706 100%);
+}
+
+.adv-icon-wrap {
+  width: 90rpx;
+  height: 90rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+  border-radius: 22rpx;
+  flex-shrink: 0;
+}
+
+.adv-icon {
+  font-size: 44rpx;
+}
+
+.adv-info {
+  flex: 1;
+}
+
+.adv-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #1E293B;
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.adv-desc {
+  font-size: 26rpx;
+  color: #64748B;
+  line-height: 1.6;
+}
+
+.adv-arrow {
+  font-size: 32rpx;
+  color: #F59E0B;
+  font-weight: 600;
+}
+
+/* 联系卡片 */
+.contact-card {
+  background: linear-gradient(135deg, #FFFFFF 0%, #FFFBEB 100%);
+  padding: 40rpx;
+  border-radius: 28rpx;
+  box-shadow: 0 12rpx 40rpx rgba(245, 158, 11, 0.15);
+  border: 2rpx solid #FEF3C7;
+}
+
+.contact-header {
+  text-align: center;
+  margin-bottom: 36rpx;
+  padding-bottom: 28rpx;
+  border-bottom: 2rpx solid #FEF3C7;
+}
+
+.contact-title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #1E293B;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.contact-subtitle {
+  font-size: 24rpx;
+  color: #64748B;
+}
+
+.contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  padding: 20rpx;
+  background: #FFFFFF;
+  border-radius: 16rpx;
+}
+
+.contact-icon-wrap {
+  width: 72rpx;
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+  border-radius: 18rpx;
+  flex-shrink: 0;
+}
+
+.contact-icon {
+  font-size: 36rpx;
+}
+
+.contact-info {
+  flex: 1;
+}
+
+.contact-label {
+  font-size: 22rpx;
+  color: #94A3B8;
+  display: block;
+  margin-bottom: 4rpx;
+}
+
+.contact-text {
+  font-size: 30rpx;
+  color: #1E293B;
+  font-weight: 600;
+}

@@ -1,0 +1,52 @@
+<view class="services">
+  <view class="hero">
+    <view class="container">
+      <text class="title">AI转型服务</text>
+      <text class="subtitle">为传统行业提供从咨询、方案设计到落地实施的全流程支持</text>
+    </view>
+  </view>
+
+  <view class="content">
+    <view class="service-card">
+      <image class="service-icon" src="/assets/images/service-consulting.png" mode="aspectFit"></image>
+      <view class="service-body">
+        <text class="service-title">AI行业转型咨询</text>
+        <text class="service-sub">深入调研企业现状与业务需求，定制化设计AI转型路径图</text>
+        <view class="features">
+          <text class="feature">企业现状诊断评估</text>
+          <text class="feature">AI应用场景梳理</text>
+          <text class="feature">转型路线图设计</text>
+          <text class="feature">实施指导与培训</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="service-card">
+      <image class="service-icon" src="/assets/images/service-social-media.png" mode="aspectFit"></image>
+      <view class="service-body">
+        <text class="service-title">自媒体自动化运营</text>
+        <text class="service-sub">用AI技术帮助企业提升内容产出效率，降低运营团队工作负担</text>
+        <view class="features">
+          <text class="feature">内容生产效率提升</text>
+          <text class="feature">多平台统一管理</text>
+          <text class="feature">粉丝互动智能处理</text>
+          <text class="feature">运营数据分析支持</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="service-card">
+      <image class="service-icon" src="/assets/images/service-ai-agent.png" mode="aspectFit"></image>
+      <view class="service-body">
+        <text class="service-title">垂直场景智能体开发</text>
+        <text class="service-sub">基于大模型技术，为企业定制专属AI智能体</text>
+        <view class="features">
+          <text class="feature">业务场景深度定制</text>
+          <text class="feature">大模型微调与训练</text>
+          <text class="feature">多端系统集成对接</text>
+          <text class="feature">持续迭代优化服务</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

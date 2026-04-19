@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>关于我们 — Lumi科技 | 企业AI转型值得信赖的伙伴</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue-dark: #003366;
+      --blue: #004080;
+      --blue-mid: #0059A0;
+      --blue-light: #E8F0F8;
+      --blue-lighter: #F4F8FC;
+      --gray-900: #1A1A1A;
+      --gray-700: #4A4A4A;
+      --gray-500: #888;
+      --gray-300: #CCC;
+      --gray-100: #F5F5F5;
+      --white: #FFFFFF;
+      --border: #E0E0E0;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.04);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.06);
+      --shadow-blue: 0 8px 32px rgba(0,51,102,0.15);
+      --transition: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--white);
+      color: var(--gray-900);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      padding: 0 3rem;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--blue-dark);
+      letter-spacing: 0.05em;
+      text-decoration: none;
+    }
+
+    .nav-logo svg { width: 28px; height: 28px; }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--gray-700);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s var(--transition);
+    }
+
+    .nav-links a:hover { color: var(--blue-dark); }
+    .nav-links a.active { color: var(--blue-dark); }
+
+    .nav-contact {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .nav-phone { font-size: 0.9rem; color: var(--gray-700); }
+
+    .nav-btn {
+      background: var(--blue-dark);
+      color: var(--white);
+      padding: 0.55rem 1.5rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s var(--transition);
+      font-family: inherit;
+      text-decoration: none;
+    }
+
+    .nav-btn:hover { background: var(--blue); }
+
+    .page-header {
+      background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 100%);
+      color: var(--white);
+      padding: clamp(1.25rem, 3vw, 2rem) clamp(0.75rem, 2vw, 1.5rem);
+      text-align: center;
+    }
+
+    .page-header h1 {
+      font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .page-header p {
+      font-size: clamp(0.8rem, 1.2vw, 0.9rem);
+      color: rgba(255,255,255,0.8);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 clamp(0.75rem, 2vw, 1.5rem); }
+
+    /* ABOUT INTRO */
+    .about-intro {
+      padding: 5rem 0;
+    }
+
+    .about-intro-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .about-intro h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 1.5rem;
+    }
+
+    .about-intro p {
+      font-size: 0.95rem;
+      color: var(--gray-700);
+      line-height: 1.9;
+      margin-bottom: 1rem;
+    }
+
+    .about-image {
+      background: linear-gradient(135deg, var(--blue-light) 0%, var(--blue-lighter) 100%);
+      border-radius: 16px;
+      height: 320px;
+      overflow: hidden;
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* VALUES */
+    .values {
+      background: var(--gray-100);
+      padding: 5rem 3rem;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      color: var(--blue-mid);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2rem);
+      font-weight: 700;
+      color: var(--gray-900);
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .value-item {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      background: var(--white);
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .value-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(145deg, var(--blue-dark), var(--blue-mid));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .value-icon svg {
+      color: var(--white);
+    }
+
+    .value-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--gray-900);
+      margin-bottom: 0.5rem;
+    }
+
+    .value-desc {
+      font-size: 0.85rem;
+      color: var(--gray-700);
+      line-height: 1.6;
+    }
+
+    /* HONORS */
+    .honors-section {
+      padding: 5rem 0;
+    }
+
+    .honors-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+
+    .honor-item {
+      background: var(--white);
+      border: 1px solid rgba(0,0,0,0.05);
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .honor-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .honor-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--gray-900);
+      margin-bottom: 0.3rem;
+    }
+
+    .honor-desc {
+      font-size: 0.8rem;
+      color: var(--gray-500);
+    }
+
+    /* CTA */
+    .cta {
+      background: var(--blue-dark);
+      color: var(--white);
+      padding: 4rem 3rem;
+      text-align: center;
+    }
+
+    .cta h2 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .cta p {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 2rem;
+    }
+
+    .cta .btn-white {
+      background: var(--white);
+      color: var(--blue-dark);
+      padding: 0.9rem 2.5rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s var(--transition);
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .cta .btn-white:hover { background: var(--blue-light); transform: translateY(-1px); }
+
+    footer {
+      background: var(--gray-100);
+      border-top: 1px solid var(--border);
+      padding: 3rem;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: var(--gray-500);
+      margin-top: 0.5rem;
+    }
+
+    .footer-links { display: flex; gap: 4rem; }
+
+    .footer-col h5 {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-700);
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+
+    .footer-col a {
+      color: var(--gray-500);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover { color: var(--blue-dark); }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 2rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-bottom p { font-size: 0.8rem; color: var(--gray-500); }
+
+    @media (max-width: 900px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links { display: none; }
+      .page-header { padding: clamp(1rem, 3vw, 1.5rem) clamp(0.5rem, 1.5vw, 1rem); }
+      .container { padding: 0 1.5rem; }
+      .about-intro-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .values { padding: 3rem 1.5rem; }
+      .values-grid { grid-template-columns: repeat(2, 1fr); }
+      .honors-section { padding: 3rem 0; }
+      .honors-grid { grid-template-columns: repeat(2, 1fr); }
+      .cta { padding: 3rem 1.5rem; }
+      footer { padding: 2rem 1.5rem; }
+      .footer-links { flex-direction: column; gap: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="40" height="40" rx="10" fill="#003366"/>
+        <path d="M12 28L20 12L28 28H12Z" fill="white"/>
+        <circle cx="20" cy="22" r="4" fill="#003366"/>
+      </svg>
+      LUMI 科技
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">首页</a></li>
+      <li><a href="services.html">服务项目</a></li>
+      <li><a href="cases.html">成功案例</a></li>
+      <li><a href="about.html" class="active">关于我们</a></li>
+      <li><a href="contact.html">联系我们</a></li>
+    </ul>
+    <div class="nav-contact">
+      <div class="nav-phone">400-888-8888</div>
+      <a href="contact.html" class="nav-btn">立即咨询</a>
+    </div>
+  </nav>
+
+  <section class="page-header">
+    <h1>关于我们</h1>
+    <p>深耕企业AI转型，与您共同成长</p>
+  </section>
+
+  <section class="about-intro">
+    <div class="container">
+      <div class="about-intro-inner">
+        <div>
+          <h2>让AI技术真正赋能传统企业</h2>
+          <p>Lumi科技成立于2010年，是国内最早专注于企业AI转型的技术服务公司之一。十多年来，我们始终坚持"不炒概念，只看结果"的理念，为超过50家传统企业提供AI转型服务。</p>
+          <p>我们深知传统企业在数字化转型中的顾虑——投入大、周期长、效果难预测。因此我们坚持：不做概念，只做能落地的方案；不求快，求稳求实效。</p>
+          <p>我们团队既有AI技术专家，也有在传统行业深耕多年的业务顾问，确保每一个方案都能真正解决您的问题，而不是制造新的麻烦。</p>
+        </div>
+        <div class="about-image"><img src="assets/images/team-meeting.jpg" alt="Lumi科技团队" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="values">
+    <div class="section-header">
+      <div class="section-label">核心价值观</div>
+      <h2 class="section-title">我们坚持的原则</h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-item">
+        <div class="value-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+        </div>
+        <h4 class="value-title">务实创新</h4>
+        <p class="value-desc">不追风口，只做对企业真正有价值的AI应用</p>
+      </div>
+      <div class="value-item">
+        <div class="value-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <h4 class="value-title">客户为本</h4>
+        <p class="value-desc">深入理解业务场景，提供量身定制的解决方案</p>
+      </div>
+      <div class="value-item">
+        <div class="value-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </div>
+        <h4 class="value-title">安全可靠</h4>
+        <p class="value-desc">企业级安全标准，数据安全是我们的底线</p>
+      </div>
+      <div class="value-item">
+        <div class="value-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="20" x2="12" y2="10"/>
+            <polyline points="18 20 22 16 18 12"/>
+            <line x1="2" y1="20" x2="6" y2="20"/>
+          </svg>
+        </div>
+        <h4 class="value-title">持续陪伴</h4>
+        <p class="value-desc">不是交付即结束，我们与您共同成长</p>
+      </div>
+    </div>
+  </section>
+
+
+
+  <section class="honors-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">资质荣誉</div>
+        <h2 class="section-title">专业认证，值得信赖</h2>
+      </div>
+      <div class="honors-grid">
+        <div class="honor-item">
+          <div class="honor-icon">🏆</div>
+          <h4 class="honor-title">国家高新技术企业</h4>
+          <p class="honor-desc">科技部认证</p>
+        </div>
+        <div class="honor-item">
+          <div class="honor-icon">📜</div>
+          <h4 class="honor-title">ISO27001认证</h4>
+          <p class="honor-desc">信息安全管理体系</p>
+        </div>
+        <div class="honor-item">
+          <div class="honor-icon">🔐</div>
+          <h4 class="honor-title">等保三级认证</h4>
+          <p class="honor-desc">信息系统安全等级</p>
+        </div>
+        <div class="honor-item">
+          <div class="honor-icon">🌟</div>
+          <h4 class="honor-title">AI行业影响力TOP10</h4>
+          <p class="honor-desc">2023年度评选</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>期待与您合作</h2>
+    <p>联系我们，了解Lumi科技如何助力您的企业AI转型</p>
+    <a href="tel:400-888-8888" class="btn-white">拨打 400-888-8888</a>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="10" fill="#003366"/>
+            <path d="M12 28L20 12L28 28H12Z" fill="white"/>
+            <circle cx="20" cy="22" r="4" fill="#003366"/>
+          </svg>
+          LUMI 科技
+        </a>
+        <p>专注企业AI转型，让技术创造真实价值</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h5>服务</h5>
+          <ul>
+            <li><a href="services.html">AI行业转型</a></li>
+            <li><a href="services.html">自媒体自动化</a></li>
+            <li><a href="services.html">智能体开发</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>导航</h5>
+          <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="cases.html">成功案例</a></li>
+            <li><a href="about.html">关于我们</a></li>
+            <li><a href="contact.html">联系我们</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>联系</h5>
+          <ul>
+            <li><a>400-888-8888</a></li>
+            <li><a href="mailto:contact@lumi.tech">contact@lumi.tech</a></li>
+            <li><a>北京市海淀区</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Lumi科技（北京）有限公司</p>
+      <p>京ICP备XXXXXXXX号-1</p>
+    </div>
+  </footer>
+</body>
+</html>

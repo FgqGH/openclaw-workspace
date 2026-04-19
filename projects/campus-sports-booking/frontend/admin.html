@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, sans-serif; background: #f5f5f5; }
+    .header { background: #1976d2; color: white; padding: 16px; }
+    .header h1 { font-size: 18px; }
+    .container { padding: 16px; padding-bottom: 70px; }
+    .card { background: white; border-radius: 12px; padding: 16px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+    .section-title { font-size: 14px; color: #666; margin-bottom: 12px; font-weight: 600; }
+    input, select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 8px; font-size: 14px; }
+    .btn { padding: 10px; background: #1976d2; color: white; border: none; border-radius: 8px; cursor: pointer; width: 100%; margin-bottom: 8px; }
+    .btn:hover { background: #1565c0; }
+    .venue-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee; }
+    .venue-item:last-child { border-bottom: none; }
+    .venue-name { font-size: 14px; font-weight: 500; }
+    .venue-meta { font-size: 12px; color: #888; }
+    .del-btn { color: #f44336; background: none; border: none; cursor: pointer; padding: 4px 8px; font-size: 18px; }
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; border-top: 1px solid #eee; display: flex; }
+    .nav-item { flex: 1; padding: 10px; text-align: center; font-size: 12px; color: #666; text-decoration: none; }
+    .nav-item.active { color: #1976d2; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>⚙️ 管理</h1>
+  </div>
+  <div class="container">
+    <div class="card">
+      <div class="section-title">添加场地</div>
+      <input type="text" id="name" placeholder="场地名称，如：篮球场1号">
+      <select id="type">
+        <option value="篮球">篮球</option>
+        <option value="足球">足球</option>
+        <option value="羽毛球">羽毛球</option>
+        <option value="乒乓球">乒乓球</option>
+        <option value="网球">网球</option>
+      </select>
+      <input type="text" id="location" placeholder="位置，如：体育馆1楼">
+      <button class="btn" onclick="addVenue()">添加场地</button>
+    </div>
+    <div class="card">
+      <div class="section-title">场地列表</div>
+      <div id="venueList">加载中...</div>
+    </div>
+  </div>
+  <div class="bottom-nav">
+    <a href="venues.html" class="nav-item">🏠 场地</a>
+    <a href="my-bookings.html" class="nav-item">📅 我的预约</a>
+    <a href="admin.html" class="nav-item active">⚙️ 管理</a>
+  </div>
+  <script>
+    const API = 'http://localhost:3000/api';
+    async function load() {
+      const token = localStorage.getItem('token');
+      const res = await fetch(API + '/venues', {
+        headers: { 'Authorization': 'Bearer ' + token }
+      });
+      const venues = await res.json();
+      document.getElementById('venueList').innerHTML = venues.length
+        ? venues.map(v => `
+          <div class="venue-item">
+            <div>
+              <div class="venue-name">${v.name}</div>
+              <div class="venue-meta">${v.type} · ${v.location}</div>
+            </div>
+            <button class="del-btn" onclick="del('${v.id}')">×</button>
+          </div>
+        `).join('')
+        : '<p style="color:#999;text-align:center;padding:20px">暂无场地</p>';
+    }
+
+    async function addVenue() {
+      const name = document.getElementById('name').value.trim();
+      const type = document.getElementById('type').value;
+      const location = document.getElementById('location').value.trim();
+      if (!name || !location) { alert('请填写完整'); return; }
+      const token = localStorage.getItem('token');
+      const res = await fetch(API + '/venues', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+        body: JSON.stringify({ name, type, location })
+      });
+      if (res.ok) {
+        document.getElementById('name').value = '';
+        document.getElementById('location').value = '';
+        load();
+      } else {
+        alert('添加失败，请确认是否有管理员权限');
+      }
+    }
+
+    async function del(id) {
+      if (!confirm('确定删除？')) return;
+      const token = localStorage.getItem('token');
+      await fetch(API + '/venues/' + id, {
+        method: 'DELETE',
+        headers: { 'Authorization': 'Bearer ' + token }
+      });
+      load();
+    }
+
+    load();
+  </script>
+</body>
+</html>

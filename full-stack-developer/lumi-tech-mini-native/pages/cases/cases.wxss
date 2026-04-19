@@ -1,0 +1,135 @@
+/* 案例页面样式 - 蓝色主题 */
+.cases {
+  background-color: #F5F7FA;
+  min-height: 100vh;
+}
+
+/* 顶部标题 */
+.header {
+  padding: 50rpx 32rpx 40rpx;
+  background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+  text-align: center;
+}
+
+.header-title {
+  font-size: 44rpx;
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: 4rpx;
+}
+
+/* 案例网格 */
+.case-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24rpx;
+  padding: 32rpx;
+  background: #FFFFFF;
+  margin: 0 24rpx;
+  border-radius: 24rpx;
+  margin-top: -20rpx;
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.08);
+}
+
+.case-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.case-image {
+  width: 100%;
+  height: 160rpx;
+  border-radius: 16rpx;
+  margin-bottom: 16rpx;
+  overflow: hidden;
+}
+
+.case-content {
+  padding: 0 8rpx;
+}
+
+.case-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #1E293B;
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.case-desc {
+  font-size: 24rpx;
+  color: #64748B;
+  line-height: 1.6;
+  display: block;
+}
+
+/* 更多案例区域 */
+.more-section {
+  padding: 32rpx 24rpx;
+}
+
+.more-card {
+  display: flex;
+  gap: 24rpx;
+  padding: 32rpx;
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.04);
+  border-left: 8rpx solid #2563EB;
+}
+
+.more-icon {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 20rpx;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.more-info {
+  flex: 1;
+}
+
+.more-title {
+  font-size: 30rpx;
+  font-weight: 700;
+  color: #1E293B;
+  display: block;
+  margin-bottom: 12rpx;
+}
+
+.more-desc {
+  font-size: 26rpx;
+  color: #64748B;
+  line-height: 1.7;
+  display: block;
+  margin-bottom: 16rpx;
+}
+
+.more-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.more-tag {
+  padding: 8rpx 20rpx;
+  background: #F1F5F9;
+  border-radius: 100rpx;
+  font-size: 22rpx;
+  color: #64748B;
+  font-weight: 500;
+}
+
+.more-tag.highlight {
+  background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+  color: #2563EB;
+}
+
+/* 底部占位 */
+.bottom-space {
+  height: 120rpx;
+}

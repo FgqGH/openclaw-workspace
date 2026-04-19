@@ -1,0 +1,52 @@
+{
+  "taskId": "t002",
+  "description": "食堂预约系统",
+  "status": "in_progress",
+  "startedAt": "2026-04-17T15:07:39.339475Z",
+  "lastUpdated": "2026-04-17T15:32:11.223350Z",
+  "currentStep": "backend_dev",
+  "steps": [
+    {
+      "id": "backend_dev",
+      "name": "后端开发",
+      "dependsOn": [],
+      "status": "in_progress",
+      "startedAt": "2026-04-17T15:07:39.491280Z",
+      "completedAt": null,
+      "note": ""
+    },
+    {
+      "id": "backend_deploy",
+      "name": "后端部署",
+      "dependsOn": [
+        "backend_dev"
+      ],
+      "status": "pending",
+      "startedAt": null,
+      "completedAt": null,
+      "note": ""
+    },
+    {
+      "id": "frontend_dev",
+      "name": "前端开发",
+      "dependsOn": [],
+      "status": "pending",
+      "startedAt": null,
+      "completedAt": null,
+      "note": ""
+    }
+  ],
+  "errors": [],
+  "checkpoints": [
+    {
+      "stepId": "frontend_dev",
+      "note": "登录页+首页完成",
+      "at": "2026-04-17T15:32:11.185569Z"
+    },
+    {
+      "stepId": "frontend_dev",
+      "note": "API层完成",
+      "at": "2026-04-17T15:32:11.223334Z"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'asia-east1-docker.pkg.dev/my-project-openclaw-492614/campus-sports-repo/frontend:latest'
+      - '.'
+
+images:
+  - 'asia-east1-docker.pkg.dev/my-project-openclaw-492614/campus-sports-repo/frontend:latest'

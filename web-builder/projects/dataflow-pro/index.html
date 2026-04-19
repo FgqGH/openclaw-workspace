@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DataFlow Pro - 智能数据分析平台 | 让数据驱动决策</title>
+  <meta name="description" content="DataFlow Pro 是新一代智能数据分析平台，AI驱动的数据洞察，拖拽生成BI报表，团队实时协作，让数据分析效率提升10倍。">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'DM Sans', system-ui, sans-serif; }
+    
+    :root {
+      --primary: oklch(70% 0.18 270);
+      --primary-glow: oklch(70% 0.22 270);
+      --accent: oklch(75% 0.15 200);
+      --bg-dark: oklch(18% 0.02 260);
+      --bg-darker: oklch(14% 0.03 280);
+      --text-primary: oklch(95% 0.01 260);
+      --text-secondary: oklch(70% 0.02 260);
+    }
+    
+    body {
+      background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-darker) 100%);
+      min-height: 100vh;
+    }
+    
+    .text-gradient {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .glow-box {
+      box-shadow: 0 0 60px -10px var(--primary-glow);
+    }
+    
+    .glow-text {
+      text-shadow: 0 0 40px var(--primary-glow);
+    }
+    
+    .card-hover {
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px -15px var(--primary-glow);
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary) 0%, oklch(65% 0.20 275) 100%);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .btn-primary:hover {
+      transform: scale(1.02);
+      box-shadow: 0 10px 30px -5px var(--primary-glow);
+    }
+    
+    .btn-secondary {
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    .btn-secondary:hover {
+      background: oklch(25% 0.03 260);
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    @keyframes pulse-ring {
+      0% { transform: scale(1); opacity: 0.8; }
+      100% { transform: scale(1.5); opacity: 0; }
+    }
+    
+    .float-animation {
+      animation: float 4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+    }
+    
+    .pulse-ring {
+      animation: pulse-ring 2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+    }
+    
+    .stat-number {
+      font-variant-numeric: tabular-nums;
+    }
+    
+    /* 网格背景 */
+    .grid-bg {
+      background-image: 
+        linear-gradient(oklch(30% 0.03 260) 1px, transparent 1px),
+        linear-gradient(90deg, oklch(30% 0.03 260) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+    }
+    
+    /* 数据流动效果 */
+    .data-flow {
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      background-size: 200% 100%;
+      animation: dataFlow 3s linear infinite;
+    }
+    
+    @keyframes dataFlow {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    
+    /* 滚动条样式 */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg-darker); }
+    ::-webkit-scrollbar-thumb { background: oklch(35% 0.04 260); border-radius: 4px; }
+  </style>
+</head>
+<body class="text-white overflow-x-hidden">
+  
+  <!-- 导航栏 -->
+  <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-black/30 border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-purple-500 to-cyan-400 flex items-center justify-center">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+        </div>
+        <span class="font-semibold text-lg">DataFlow Pro</span>
+      </div>
+      
+      <div class="hidden md:flex items-center gap-8 text-sm">
+        <a href="#features" class="text-gray-400 hover:text-white transition-colors">核心功能</a>
+        <a href="#solutions" class="text-gray-400 hover:text-white transition-colors">解决方案</a>
+        <a href="#stats" class="text-gray-400 hover:text-white transition-colors">数据指标</a>
+        <a href="#pricing" class="text-gray-400 hover:text-white transition-colors">价格方案</a>
+      </div>
+      
+      <div class="flex items-center gap-4">
+        <a href="#" class="btn-secondary px-4 py-2 rounded-lg text-sm">登录</a>
+        <a href="#" class="btn-primary px-4 py-2 rounded-lg text-sm font-medium">免费试用</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="relative min-h-screen flex items-center pt-20">
+    <!-- 背景网格 -->
+    <div class="absolute inset-0 grid-bg opacity-50"></div>
+    
+    <!-- 光晕效果 -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-purple-600/20 rounded-full blur-[120px]"></div>
+    <div class="absolute top-1/3 right-1/4 w-[400px] h-[400px] bg-cyan-500/15 rounded-full blur-[100px]"></div>
+    
+    <div class="relative max-w-7xl mx-auto px-6 py-20 grid lg:grid-cols-2 gap-16 items-center">
+      <!-- 左侧文案 -->
+      <div class="space-y-8">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm">
+          <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+          <span class="text-gray-400">热度指数 80,000+ · AI驱动的数据分析平台</span>
+        </div>
+        
+        <h1 class="text-5xl lg:text-6xl font-bold leading-tight">
+          <span class="text-white">让数据驱动</span><br>
+          <span class="text-gradient glow-text">智能决策</span>
+        </h1>
+        
+        <p class="text-xl text-gray-400 leading-relaxed max-w-lg">
+          DataFlow Pro 汇聚 AI 洞察、拖拽式 BI 报表与团队协作于一体，
+          将数据分析效率提升 <span class="text-white font-semibold">10 倍</span>，
+          让每一个决策都有据可依。
+        </p>
+        
+        <div class="flex flex-wrap gap-4">
+          <a href="#" class="btn-primary px-8 py-4 rounded-xl font-semibold text-lg inline-flex items-center gap-2">
+            <span>立即开始免费试用</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </a>
+          <a href="#" class="btn-secondary px-8 py-4 rounded-xl font-medium text-lg border border-white/20 inline-flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span>观看演示</span>
+          </a>
+        </div>
+        
+        <div class="flex items-center gap-8 pt-4">
+          <div>
+            <div class="text-2xl font-bold stat-number">2,500+</div>
+            <div class="text-sm text-gray-500">企业客户</div>
+          </div>
+          <div class="w-px h-10 bg-white/10"></div>
+          <div>
+            <div class="text-2xl font-bold stat-number">99.9%</div>
+            <div class="text-sm text-gray-500">服务可用性</div>
+          </div>
+          <div class="w-px h-10 bg-white/10"></div>
+          <div>
+            <div class="text-2xl font-bold stat-number">10x</div>
+            <div class="text-sm text-gray-500">效率提升</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 右侧产品预览 -->
+      <div class="relative float-animation">
+        <div class="absolute inset-0 bg-gradient-to-br from-purple-600/30 to-cyan-500/30 rounded-3xl blur-xl transform rotate-6"></div>
+        <div class="relative bg-gradient-to-br from-gray-800/90 to-gray-900/90 rounded-3xl p-6 border border-white/10 glow-box">
+          <!-- Dashboard 预览 -->
+          <div class="bg-gray-900/80 rounded-2xl p-4 space-y-4">
+            <!-- 头部 -->
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+              </div>
+              <div class="text-xs text-gray-500">实时数据面板</div>
+            </div>
+            
+            <!-- 图表区 -->
+            <div class="grid grid-cols-3 gap-3">
+              <div class="bg-gradient-to-br from-purple-500/20 to-purple-600/10 rounded-xl p-4">
+                <div class="text-xs text-gray-400 mb-2">总营收</div>
+                <div class="text-xl font-bold">¥ 2,847万</div>
+                <div class="text-xs text-green-400 mt-1">↑ 23.5%</div>
+              </div>
+              <div class="bg-gradient-to-br from-cyan-500/20 to-cyan-600/10 rounded-xl p-4">
+                <div class="text-xs text-gray-400 mb-2">活跃用户</div>
+                <div class="text-xl font-bold">128.5K</div>
+                <div class="text-xs text-green-400 mt-1">↑ 15.2%</div>
+              </div>
+              <div class="bg-gradient-to-br from-orange-500/20 to-orange-600/10 rounded-xl p-4">
+                <div class="text-xs text-gray-400 mb-2">转化率</div>
+                <div class="text-xl font-bold">92%</div>
+                <div class="text-xs text-green-400 mt-1">↑ 8.1%</div>
+              </div>
+            </div>
+            
+            <!-- 折线图 -->
+            <div class="bg-gradient-to-br from-gray-800/50 to-gray-800/30 rounded-xl p-4">
+              <div class="text-sm text-gray-400 mb-3">月度趋势</div>
+              <div class="h-24 flex items-end gap-1">
+                <div class="flex-1 bg-purple-500/60 rounded-t" style="height: 45%"></div>
+                <div class="flex-1 bg-purple-500/60 rounded-t" style="height: 60%"></div>
+                <div class="flex-1 bg-purple-500/60 rounded-t" style="height: 40%"></div>
+                <div class="flex-1 bg-purple-500/60 rounded-t" style="height: 75%"></div>
+                <div class="flex-1 bg-purple-500/60 rounded-t" style="height: 55%"></div>
+                <div class="flex-1 bg-purple-500/60 rounded-t" style="height: 80%"></div>
+                <div class="flex-1 bg-gradient-to-t from-purple-500 to-cyan-400 rounded-t" style="height: 95%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 浮动数据卡片 -->
+        <div class="absolute -right-4 top-8 bg-gray-800/90 backdrop-blur rounded-xl p-3 border border-white/10 transform rotate-3">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center">
+              <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+              </svg>
+            </div>
+            <div>
+              <div class="text-xs text-gray-400">AI 洞察</div>
+              <div class="text-sm font-medium">发现 3 个异常点</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="absolute -left-6 bottom-12 bg-gray-800/90 backdrop-blur rounded-xl p-3 border border-white/10 transform -rotate-3">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-lg bg-cyan-500/20 flex items-center justify-center">
+              <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+              </svg>
+            </div>
+            <div>
+              <div class="text-xs text-gray-400">报表生成</div>
+              <div class="text-sm font-medium">仅需 30 秒</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 痛点与解决方案 -->
+  <section id="solutions" class="py-24 relative">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/10 to-transparent"></div>
+    
+    <div class="relative max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold mb-4">直击数据困境</h2>
+        <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+          告别繁琐的人工处理，DataFlow Pro 用智能化手段解决数据分析全链路难题
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- 痛点卡片 -->
+        <div class="space-y-6">
+          <div class="text-sm text-red-400 font-medium mb-4">❌ 传统方式</div>
+          
+          <div class="bg-white/5 rounded-2xl p-6 border border-white/5">
+            <h3 class="font-semibold text-lg mb-3 flex items-center gap-3">
+              <span class="w-8 h-8 rounded-lg bg-red-500/20 flex items-center justify-center text-red-400">⏱</span>
+              数据分析耗时
+            </h3>
+            <p class="text-gray-400">手动提取、清洗、建模，一份报表耗费数小时甚至数天</p>
+          </div>
+          
+          <div class="bg-white/5 rounded-2xl p-6 border border-white/5">
+            <h3 class="font-semibold text-lg mb-3 flex items-center gap-3">
+              <span class="w-8 h-8 rounded-lg bg-red-500/20 flex items-center justify-center text-red-400">📊</span>
+              报表制作繁琐
+            </h3>
+            <p class="text-gray-400">需要编程技能，图表样式单一，与业务需求脱节</p>
+          </div>
+          
+          <div class="bg-white/5 rounded-2xl p-6 border border-white/5">
+            <h3 class="font-semibold text-lg mb-3 flex items-center gap-3">
+              <span class="w-8 h-8 rounded-lg bg-red-500/20 flex items-center justify-center text-red-400">🏝</span>
+              数据孤岛问题
+            </h3>
+            <p class="text-gray-400">多系统数据无法打通，整合困难，视图不统一</p>
+          </div>
+          
+          <div class="bg-white/5 rounded-2xl p-6 border border-white/5">
+            <h3 class="font-semibold text-lg mb-3 flex items-center gap-3">
+              <span class="w-8 h-8 rounded-lg bg-red-500/20 flex items-center justify-center text-red-400">🤷</span>
+              决策缺乏依据
+            </h3>
+            <p class="text-gray-400">数据洞察滞后，管理层难以快速获取真实有效信息</p>
+          </div>
+        </div>
+        
+        <!-- 解决方案卡片 -->
+        <div class="space-y-6">
+          <div class="text-sm text-green-400 font-medium mb-4">✓ DataFlow Pro</div>
+          
+          <div class="bg-gradient-to-br from-green-500/10 to-cyan-500/5 rounded-2xl p-6 border border-green-500/20 card-hover">
+            <h3 class="font-semibold text-lg mb-3 flex items-center gap-3">
+              <span class="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center text-green-400">⚡</span>
+              AI 智能分析
+            </h3>
+            <p class="text-gray-400">一键自动清洗建模，AI 实时生成洞察，效率提升 10 倍</p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-green-500/10 to-cyan-500/5 rounded-2xl p-6 border border-green-500/20 card-hover">
+            <h3 class="font-semibold text-lg mb-3 flex items-center gap-3">
+              <span class="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center text-green-400">🎨</span>
+              拖拽式报表
+            </h3>
+            <p class="text-gray-400">无需编码，拖拽即成图，50+ 精美图表模板一键应用</p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-green-500/10 to-cyan-500/5 rounded-2xl p-6 border border-green-500/20 card-hover">
+            <h3 class="font-semibold text-lg mb-3 flex items-center gap-3">
+              <span class="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center text-green-400">🔗</span>
+              数据源直连
+            </h3>
+            <p class="text-gray-400">一键对接 200+ 数据源，打通数据孤岛，统一数据视图</p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-green-500/10 to-cyan-500/5 rounded-2xl p-6 border border-green-500/20 card-hover">
+            <h3 class="font-semibold text-lg mb-3 flex items-center gap-3">
+              <span class="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center text-green-400">📈</span>
+              实时仪表盘
+            </h3>
+            <p class="text-gray-400">毫秒级数据刷新，管理层随时随地掌握业务全貌</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 核心功能 -->
+  <section id="features" class="py-24 relative">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold mb-4">四大核心能力</h2>
+        <p class="text-gray-400 text-lg">为现代企业打造的完整数据智能解决方案</p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- 功能卡片 1 -->
+        <div class="group bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-2xl p-6 border border-white/5 card-hover">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500/30 to-purple-600/10 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+            <svg class="w-7 h-7 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">AI 数据洞察</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            自然语言查询，AI 自动发现数据规律与异常，输入问题即得答案
+          </p>
+        </div>
+        
+        <!-- 功能卡片 2 -->
+        <div class="group bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-2xl p-6 border border-white/5 card-hover">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500/30 to-cyan-600/10 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+            <svg class="w-7 h-7 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">拖拽式 BI 报表</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            可视化编辑器，50+ 图表类型一键切换，自定义品牌样式
+          </p>
+        </div>
+        
+        <!-- 功能卡片 3 -->
+        <div class="group bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-2xl p-6 border border-white/5 card-hover">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500/30 to-orange-600/10 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+            <svg class="w-7 h-7 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">200+ 数据源</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            MySQL、PostgreSQL、MongoDB、API 等一键直连，打通数据孤岛
+          </p>
+        </div>
+        
+        <!-- 功能卡片 4 -->
+        <div class="group bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-2xl p-6 border border-white/5 card-hover">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500/30 to-green-600/10 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+            <svg class="w-7 h-7 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-3">团队协作</h3>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            多角色权限管理，报表共享评论，版本控制与协作编辑
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 数据展示 -->
+  <section id="stats" class="py-24 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-purple-900/20 via-transparent to-cyan-900/20"></div>
+    
+    <div class="relative max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-8">
+        <div class="text-center">
+          <div class="text-5xl font-bold text-gradient mb-2 stat-number">2,500+</div>
+          <div class="text-gray-400">企业客户信赖</div>
+        </div>
+        <div class="text-center">
+          <div class="text-5xl font-bold text-gradient mb-2 stat-number">10亿+</div>
+          <div class="text-gray-400">日均数据处理量</div>
+        </div>
+        <div class="text-center">
+          <div class="text-5xl font-bold text-gradient mb-2 stat-number">92%</div>
+          <div class="text-gray-400">用户转化提升</div>
+        </div>
+        <div class="text-center">
+          <div class="text-5xl font-bold text-gradient mb-2 stat-number">5min</div>
+          <div class="text-gray-400">快速上手部署</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 价格方案 -->
+  <section id="pricing" class="py-24 relative">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold mb-4">简单透明的定价</h2>
+        <p class="text-gray-400 text-lg">按需选择，灵活扩展，无需隐藏费用</p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <!-- 基础版 -->
+        <div class="bg-white/5 rounded-2xl p-8 border border-white/10">
+          <div class="text-lg font-semibold text-gray-400 mb-2">基础版</div>
+          <div class="flex items-baseline gap-1 mb-6">
+            <span class="text-4xl font-bold">¥0</span>
+            <span class="text-gray-500">/月</span>
+          </div>
+          <p class="text-gray-400 text-sm mb-8">适合个人用户和小型团队入门</p>
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-center gap-3 text-sm">
+              <svg class="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>最多 3 个数据源</span>
+            </li>
+            <li class="flex items-center gap-3 text-sm">
+              <svg class="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>5 个仪表盘</span>
+            </li>
+            <li class="flex items-center gap-3 text-sm">
+              <svg class="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>基础图表组件</span>
+            </li>
+            <li class="flex items-center gap-3 text-sm">
+              <svg class="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>社区支持</span>
+            </li>
+          </ul>
+          <a href="#" class="block w-full py-3 text-center rounded-xl border border-white/20 font-medium hover:bg-white/5 transition-colors">
+            立即开始
+          </a>
+        </div>
+        
+        <!-- 专业版 -->
+        <div class="relative bg-gradient-to-b from-purple-500/10 to-cyan-500/5 rounded-2xl p-8 border border-purple-500/30 glow-box">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-full text-sm font-medium">
+            最受欢迎
+          </div>
+          <div class="text-lg font-semibold text-white mb-2">专业版</div>
+          <div class="flex items-baseline gap-1 mb-6">
+            <span class="text-4xl font-bold">¥399</span>
+            <span class="text-gray-500">/月</span>
+          </div>
+          <p class="text-gray-400 text-sm mb-8">适合成长型团队和中小企业</p>
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-center gap-3 text-sm">
+              <svg class="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>无限数据源</span>
+            </li>
+            <li class="flex items-center gap-3 text-sm">
+              <svg class="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>无限仪表盘</span>
+            </li>
+            <li class="flex items-center gap-3 text-sm">
+              <svg class="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>AI 数据洞察</span>
+            </li>
+            <li class="flex items-center gap-3 text-sm">
+              <svg class="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>团队协作 (10人)</span>
+            </li>
+            <li class="flex items-center gap-3 text-sm">
+              <svg class="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>优先级支持</span>
+            </li>
+          </ul>
+          <a href="#" class="block w-full py-3 text-center rounded-xl btn-primary font-semibold">
+            免费试用 14 天
+          </a>
+        </div>
+        
+        <!-- 企业版 -->
+        <div class="bg-white/5 rounded-2xl p-8 border border-white/10">
+          <div class="text-lg font-semibold text-gray-400 mb-2">企业版</div>
+          <div class="flex items-baseline gap-1 mb-6">
+            <span class="text-4xl font-bold">定制</span>
+          </div>
+          <p class="text-gray-400 text-sm mb-8">适合大型企业和特殊需求</p>
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-center gap-3 text-sm">
+              <svg class="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>私有化部署</span>
+            </li>
+            <li class="flex items-center gap-3 text-sm">
+              <svg class="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>无限团队规模</span>
+            </li>
+            <li class="flex items-center gap-3 text-sm">
+              <svg class="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>自定义 SLA</span>
+            </li>
+            <li class="flex items-center gap-3 text-sm">
+              <svg class="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>专属客户成功</span>
+            </li>
+          </ul>
+          <a href="#" class="block w-full py-3 text-center rounded-xl border border-white/20 font-medium hover:bg-white/5 transition-colors">
+            联系我们
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-24 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-gray-900 to-cyan-900/20"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-purple-600/20 rounded-full blur-[150px]"></div>
+    
+    <div class="relative max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-4xl lg:text-5xl font-bold mb-6">
+        准备好升级你的<br>
+        <span class="text-gradient">数据分析能力</span>了吗？
+      </h2>
+      <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
+        加入 2,500+ 企业用户，让 DataFlow Pro 成为你团队的智能数据伙伴
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="#" class="btn-primary px-10 py-4 rounded-xl font-semibold text-lg inline-flex items-center gap-2">
+          <span>开始免费试用</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+        <a href="#" class="btn-secondary px-10 py-4 rounded-xl font-medium text-lg border border-white/20">
+          预约演示
+        </a>
+      </div>
+      <p class="text-gray-500 text-sm mt-6">无需信用卡 · 14 天免费试用 · 随时取消</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/5 py-16">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-12 mb-12">
+        <div>
+          <div class="flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-cyan-400 flex items-center justify-center">
+              <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+              </svg>
+            </div>
+            <span class="font-semibold">DataFlow Pro</span>
+          </div>
+          <p class="text-gray-500 text-sm">新一代智能数据分析平台，让数据驱动决策</p>
+        </div>
+        
+        <div>
+          <h4 class="font-medium mb-4">产品</h4>
+          <ul class="space-y-2 text-sm text-gray-400">
+            <li><a href="#" class="hover:text-white transition-colors">核心功能</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">更新日志</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">价格方案</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">集成生态</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="font-medium mb-4">资源</h4>
+          <ul class="space-y-2 text-sm text-gray-400">
+            <li><a href="#" class="hover:text-white transition-colors">文档中心</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">API 参考</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">教程视频</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">社区论坛</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="font-medium mb-4">公司</h4>
+          <ul class="space-y-2 text-sm text-gray-400">
+            <li><a href="#" class="hover:text-white transition-colors">关于我们</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">联系方式</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">隐私政策</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">服务条款</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5">
+        <p class="text-gray-500 text-sm">© 2025 DataFlow Pro. All rights reserved.</p>
+        <div class="flex items-center gap-4 mt-4 md:mt-0">
+          <a href="#" class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // 滚动动画
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.card-hover').forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+      observer.observe(card);
+    });
+
+    // 导航栏滚动效果
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        nav.classList.add('bg-black/50');
+      } else {
+        nav.classList.remove('bg-black/50');
+      }
+    });
+  </script>
+</body>
+</html>

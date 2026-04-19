@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>预约场地</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, sans-serif; background: #f5f5f5; }
+    .header { background: #1976d2; color: white; padding: 16px; display: flex; align-items: center; gap: 12px; }
+    .back { color: white; text-decoration: none; font-size: 20px; }
+    .header h1 { font-size: 18px; }
+    .container { padding: 16px; padding-bottom: 80px; }
+    .card { background: white; border-radius: 12px; padding: 16px; margin-bottom: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+    .venue-name { font-size: 18px; font-weight: 600; margin-bottom: 4px; }
+    .venue-info { font-size: 14px; color: #888; margin-bottom: 12px; }
+    .date-scroll { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0 12px; }
+    .date-btn { flex-shrink: 0; padding: 8px 14px; border: 1px solid #ddd; border-radius: 8px; background: white; cursor: pointer; font-size: 13px; text-align: center; min-width: 60px; }
+    .date-btn.active { background: #1976d2; color: white; border-color: #1976d2; }
+    .section-title { font-size: 14px; color: #666; margin-bottom: 8px; }
+    .time-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .time-btn { padding: 10px 4px; border: 1px solid #ddd; border-radius: 8px; background: white; cursor: pointer; font-size: 13px; text-align: center; }
+    .time-btn.available:hover { background: #e3f2fd; border-color: #1976d2; color: #1976d2; }
+    .time-btn.taken { background: #f5f5f5; color: #bbb; cursor: not-allowed; border-color: #eee; }
+    .time-btn.selected { background: #1976d2; color: white; border-color: #1976d2; }
+    .bottom-btn { position: fixed; bottom: 0; left: 0; right: 0; padding: 16px; background: white; border-top: 1px solid #eee; }
+    .btn { width: 100%; padding: 14px; background: #1976d2; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; }
+    .btn:disabled { background: #ccc; }
+    .result { text-align: center; padding: 40px 20px; }
+    .result-icon { font-size: 60px; margin-bottom: 16px; }
+    .result-code { font-size: 24px; font-weight: bold; color: #1976d2; margin: 16px 0; letter-spacing: 4px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <a href="venues.html" class="back">←</a>
+    <h1>预约场地</h1>
+  </div>
+  <div class="container" id="app">
+    <div class="card">
+      <div class="venue-name" id="venueName">加载中...</div>
+      <div class="venue-info" id="venueInfo"></div>
+    </div>
+    <div class="card">
+      <div class="section-title">选择日期</div>
+      <div class="date-scroll" id="dateList"></div>
+    </div>
+    <div class="card">
+      <div class="section-title">选择时段</div>
+      <div class="time-grid" id="timeList"></div>
+    </div>
+  </div>
+  <div class="bottom-btn">
+    <button class="btn" id="bookBtn" disabled onclick="doBook()">请选择日期和时段</button>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const venueId = params.get('venueId');
+    const venueName = decodeURIComponent(params.get('name') || '');
+    const venueType = decodeURIComponent(params.get('type') || '');
+    const venueLocation = decodeURIComponent(params.get('location') || '');
+
+    let selectedDate = '';
+    let selectedSlotId = '';
+    let slots = [];
+
+    document.getElementById('venueName').textContent = venueName;
+    document.getElementById('venueInfo').textContent = venueType + ' · ' + venueLocation;
+
+    // Generate next 7 days
+    const days = [];
+    for (let i = 0; i < 7; i++) {
+      const d = new Date();
+      d.setDate(d.getDate() + i);
+      days.push(d);
+    }
+
+    const dayLabels = days.map(d => ({
+      value: d.toISOString().split('T')[0],
+      label: i === 0 ? '今天' : (i === 1 ? '明天' : (d.getMonth()+1)+'/'+d.getDate()),
+      full: d.toLocaleDateString('zh-CN', { weekday: 'short', month: 'short', day: 'numeric' })
+    }));
+
+    document.getElementById('dateList').innerHTML = dayLabels.map((day, i) =>
+      `<div class="date-btn${i === 0 ? ' active' : ''}" onclick="selectDate('${day.value}', this)">
+        <div>${day.label}</div>
+        <div style="font-size:11px;color:#888;margin-top:2px">${day.full}</div>
+      </div>`
+    ).join('');
+
+    function selectDate(date, el) {
+      document.querySelectorAll('.date-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      selectedDate = date;
+      loadSlots();
+    }
+
+    async function loadSlots() {
+      const token = localStorage.getItem('token');
+      const res = await fetch(API + '/venues/' + venueId + '/time-slots?date=' + selectedDate);
+      slots = await res.json();
+      renderSlots();
+    }
+
+    function renderSlots() {
+      const timeMap = {};
+      for (let h = 8; h < 22; h++) {
+        const t = (h < 10 ? '0'+h : h) + ':00';
+        timeMap[h] = { time: t, available: true, slotId: null };
+      }
+      slots.forEach(s => {
+        const h = parseInt(s.start_time.split(':')[0]);
+        if (timeMap[h]) {
+          timeMap[h].available = false;
+          timeMap[h].slotId = s.id;
+        }
+      });
+
+      const times = Object.values(timeMap);
+      document.getElementById('timeList').innerHTML = times.map(t => {
+        if (t.available) {
+          return `<div class="time-btn available" onclick="selectSlot('${t.slotId}', '${t.time}', this)">${t.time}</div>`;
+        } else {
+          return `<div class="time-btn taken">${t.time}<br><small>已满</small></div>`;
+        }
+      }).join('');
+    }
+
+    function selectSlot(slotId, time, el) {
+      document.querySelectorAll('.time-btn.selected').forEach(b => b.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedSlotId = slotId;
+      const btn = document.getElementById('bookBtn');
+      btn.disabled = false;
+      btn.textContent = '确认预约 ' + time;
+    }
+
+    async function doBook() {
+      const token = localStorage.getItem('token');
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      const btn = document.getElementById('bookBtn');
+      btn.disabled = true;
+      btn.textContent = '预约中...';
+
+      const res = await fetch(API + '/bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+        body: JSON.stringify({ venueId, timeSlotId: selectedSlotId })
+      });
+      const data = await res.json();
+
+      if (data.booking_code) {
+        document.getElementById('app').innerHTML = `
+          <div class="card result">
+            <div class="result-icon">✅</div>
+            <div>预约成功！</div>
+            <div class="result-code">${data.booking_code}</div>
+            <div style="color:#888;font-size:14px">请保存好预约码</div>
+            <button class="btn" style="margin-top:24px" onclick="location.href='my-bookings.html'">查看我的预约</button>
+          </div>
+        `;
+      } else {
+        btn.disabled = false;
+        btn.textContent = '预约失败，请重试';
+      }
+    }
+
+    const API = 'http://localhost:3000/api';
+  </script>
+</body>
+</html>

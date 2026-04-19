@@ -1,0 +1,108 @@
+<view class="about">
+  <view class="hero">
+    <view class="hero-content">
+      <image class="logo-circle" src="/assets/images/about-logo.png" mode="aspectFit"></image>
+      <text class="title">LUMI科技</text>
+      <text class="slogan">专注企业AI转型服务</text>
+    </view>
+    <view class="hero-stats">
+      <view class="hero-stat">
+        <text class="hero-stat-num">14</text>
+        <text class="hero-stat-label">年行业经验</text>
+      </view>
+      <view class="hero-stat">
+        <text class="hero-stat-num">50+</text>
+        <text class="hero-stat-label">服务企业</text>
+      </view>
+      <view class="hero-stat">
+        <text class="hero-stat-num">98%</text>
+        <text class="hero-stat-label">客户满意</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="content">
+    <view class="section intro-section">
+      <view class="section-header">
+        <image class="section-icon-img" src="/assets/images/about-intro.png" mode="aspectFit"></image>
+        <text class="section-title">关于我们</text>
+      </view>
+      <text class="desc">为传统行业提供从咨询、方案设计到落地实施的全流程支持。我们不是卖产品的技术公司，而是帮您用AI解决实际业务问题的合作伙伴。</text>
+    </view>
+
+    <view class="section">
+      <view class="section-header">
+        <image class="section-icon-img" src="/assets/images/about-advantages.png" mode="aspectFit"></image>
+        <text class="section-title">我们的优势</text>
+      </view>
+      <view class="adv-list">
+        <view class="adv-item">
+          <view class="adv-icon-wrap">
+            <text class="adv-icon">📋</text>
+          </view>
+          <view class="adv-info">
+            <text class="adv-title">先诊断，后方案</text>
+            <text class="adv-desc">不急于推销产品。我们会先深入了解您的业务场景和实际痛点。</text>
+          </view>
+          <view class="adv-arrow">→</view>
+        </view>
+        <view class="adv-item">
+          <view class="adv-icon-wrap">
+            <text class="adv-icon">🔒</text>
+          </view>
+          <view class="adv-info">
+            <text class="adv-title">数据安全有保障</text>
+            <text class="adv-desc">支持私有化部署，数据不出您的服务器。</text>
+          </view>
+          <view class="adv-arrow">→</view>
+        </view>
+        <view class="adv-item">
+          <view class="adv-icon-wrap">
+            <text class="adv-icon">🤝</text>
+          </view>
+          <view class="adv-info">
+            <text class="adv-title">全程驻场服务</text>
+            <text class="adv-desc">不是交付后就撒手不管。我们会驻场跟进。</text>
+          </view>
+          <view class="adv-arrow">→</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="contact-card">
+      <view class="contact-header">
+        <text class="contact-title">联系我们</text>
+        <text class="contact-subtitle">随时为您提供专业咨询</text>
+      </view>
+      <view class="contact-list">
+        <view class="contact-item">
+          <view class="contact-icon-wrap">
+            <text class="contact-icon">📞</text>
+          </view>
+          <view class="contact-info">
+            <text class="contact-label">服务热线</text>
+            <text class="contact-text">400-888-8888</text>
+          </view>
+        </view>
+        <view class="contact-item">
+          <view class="contact-icon-wrap">
+            <text class="contact-icon">✉️</text>
+          </view>
+          <view class="contact-info">
+            <text class="contact-label">电子邮箱</text>
+            <text class="contact-text">contact@lumitech.com</text>
+          </view>
+        </view>
+        <view class="contact-item">
+          <view class="contact-icon-wrap">
+            <text class="contact-icon">📍</text>
+          </view>
+          <view class="contact-info">
+            <text class="contact-label">公司地址</text>
+            <text class="contact-text">北京市朝阳区科技园区</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
